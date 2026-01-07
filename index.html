@@ -19,20 +19,42 @@
             scroll-behavior: smooth; color: var(--text-dark); background: #fff;
         }
 
-        /* Hero Section */
+        /* Hero Section - Optimized for left-aligned text */
         .hero {
             position: relative; width: 100%; aspect-ratio: 16 / 9;
             background: #1a1a1a url('boy.jpg') no-repeat center top / cover;
-            display: flex; align-items: center; justify-content: center;
+            display: flex; 
+            align-items: center; 
+            justify-content: flex-start;
         }
         .hero::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.6) 100%);
+            /* Gradient to ensure text readability on the left */
+            background: linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 100%);
             z-index: 1;
         }
-        .hero-overlay { position: relative; z-index: 2; text-align: center; color: white; padding: 20px; }
-        .hero h1 { font-size: 3.2rem; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.6); font-weight: 500; letter-spacing: 1px; }
-        .hero p { font-size: 1.4rem; margin-top: 20px; letter-spacing: 2px; font-weight: 300; }
+        .hero-overlay { 
+            position: relative; 
+            z-index: 2; 
+            text-align: left; 
+            color: white; 
+            padding-left: 6%; 
+            max-width: 450px; /* Limits width to avoid covering the face */
+        }
+        .hero h1 { 
+            font-size: 2.8rem; 
+            margin: 0; 
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+            font-weight: 500; 
+            line-height: 1.3;
+        }
+        .hero p { 
+            font-size: 1.4rem; 
+            margin-top: 20px; 
+            letter-spacing: 3px; 
+            font-weight: 300;
+            opacity: 0.9;
+        }
 
         /* Identity Grid */
         .id-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; background: #fbfdfc; padding: 80px 12%; }
@@ -87,14 +109,20 @@
 
         footer { text-align: center; padding: 80px; color: #bbb; letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase; }
 
-        @media (max-width: 900px) { .id-grid, .project-grid, .legacy-grid { display: block; } .project-img, .id-card { margin-bottom: 40px; } .modal-content { width: 92%; padding: 25px; } }
+        @media (max-width: 900px) { 
+            .id-grid, .project-grid, .legacy-grid { display: block; } 
+            .project-img, .id-card { margin-bottom: 40px; } 
+            .modal-content { width: 92%; padding: 25px; }
+            .hero-overlay { max-width: 80%; padding-left: 5%; }
+            .hero h1 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
 
     <header class="hero">
         <div class="hero-overlay">
-            <h1>Whatever you can imagine, <br>is bound to exist in this world.</h1>
+            <h1>Whatever you can imagine exists in this world.</h1>
             <p>Hejun Zhang</p>
         </div>
     </header>
@@ -122,7 +150,7 @@
             <div class="project-img" onclick="openModal('modal-panda')"><img src="panda-lamp.jpg" alt="Panda Candy Lamp"></div>
             <div class="project-text">
                 <h2 style="font-size: 2.4rem; margin: 15px 0;">Panda Candy Lamp</h2>
-                <p>Designed by Hejun Zhang and his 12-year-old son, Max. This project transforms literary dreams from <i>"A Candy Rain"</i> into solar-powered solutions for children in Africa.</p>
+                <p>Collaboratively designed by Hejun Zhang and his 12-year-old son, Max. This solar-powered solution translates childhood dreams into essential light for Africa.</p>
                 <div class="read-more-btn" onclick="openModal('modal-panda')">Explore Story</div>
             </div>
         </div>
@@ -162,29 +190,29 @@
         const details = {
             'modal-panda': {
                 title: 'Panda Candy Lamp',
-                content: `<p><b>A Father-Son Design:</b> Co-designed with my 12-year-old son, Max. Inspired by my debut book <i>"A Candy Rain,"</i> where inhabitants create a "candy rain" to help children in need.</p>
-                          <p><b>From Story to Light:</b> We transformed this literary wish into a solar-powered lamp that provides essential lighting for African children, proving that imagination can solve real-world problems.</p>
+                content: `<p><b>A Father-Son Legacy:</b> Co-designed with my 12-year-old son, Max. Inspired by my debut book <i>"A Candy Rain."</i></p>
+                          <p><b>Impact:</b> A high-efficiency solar lamp providing sustainable lighting for African children, proving that imagination can illuminate reality.</p>
                           <div class="video-container"><iframe src="https://www.youtube.com/embed/dZ_XVnZMaAE" frameborder="0" allowfullscreen></iframe></div>`,
                 images: ['panda-1.jpg', 'panda-2.jpg', 'panda-3.jpg']
             },
             'modal-fuyue': {
                 title: 'Fu Yue Bottle (Lunar Bottle)',
-                content: `<p><b>A Romantic Origin:</b> Originally conceived in 2004 as a moon-synced gift for my girlfriend. After 9 years of refinement, it was realized in 2013.</p>
-                          <p><b>Aerospace Legacy:</b> Now permanently installed at <b>Beijing Aerospace City</b> for the 10th anniversary of Chinese Manned Spaceflight. <b>Yang Liwei</b>, China's first taikonaut, participated in its creation and highly commended the work.</p>`,
+                content: `<p><b>A 9-Year Promise:</b> Originally a romantic gift designed in 2004, fully realized in 2013 through astronomical engineering.</p>
+                          <p><b>Aerospace Recognition:</b> Permanently installed at <b>Beijing Aerospace City</b>. <b>Yang Liwei</b>, China's first taikonaut, participated in its creation.</p>`,
                 images: ['fuyue-1.jpg', 'fuyue-2.jpg', 'fuyue-3.jpg']
             },
             'modal-iwater': {
                 title: 'iWater Initiative',
-                content: `<p><b>The Crisis:</b> China consumes tens of billions of bottles of water annually. Many are wasted because they become "unidentifiable" once opened.</p>
+                content: `<p><b>The Crisis:</b> China consumes tens of billions of bottles of water annually. Many are wasted because they become unidentifiable once opened.</p>
                           <div class="video-container"><iframe src="https://www.youtube.com/embed/lxqgVim_9tg" frameborder="0" allowfullscreen></iframe></div>
-                          <p><b>National Stewardship:</b> As the Co-Founder and Secretary General of this project, I promoted the "marker label" system, which has been used for years at the <b>NPC & CPPCC (Two Sessions)</b> and supported by figures like <b>Henry Paulson</b>.</p>`,
+                          <p><b>Impact:</b> Adopted for years at the <b>NPC & CPPCC (The Two Sessions)</b> and supported by global leaders like <b>Henry Paulson</b>.</p>`,
                 images: ['iw1.jpg','iw2.jpg','iw3.jpg','iw4.jpg','iw5.jpg','iw6.jpg','iw7.jpg','iw8.jpg','iw9.jpg']
             },
             'modal-books': {
                 title: '22 Picture Books & Bologna Honors',
-                content: `<p><b>10 Years in the Mountains:</b> To write stories for my newborn son, I moved into the mountains for a decade, authoring 22 books that explain the world with warmth and without preaching.</p>
+                content: `<p><b>The Journey:</b> Moving into the mountains for a decade to write stories for my newborn son, focusing on narratives that resonate without preaching.</p>
                           <p><b>Collaborations:</b> Working with Caldecott Medalist <b>Richard Egielski</b>, Japanese master <b>Sadao Tsukioka</b>, and Iranian genius <b>Hassan Mousavi</b>.</p>
-                          <p><b>Accolade:</b> Shortlisted for the <b>2025 Bologna Illustrators Exhibition</b>.</p>`,
+                          <p><b>Recognition:</b> Finalist for the <b>2025 Bologna Illustrators Exhibition</b>.</p>`,
                 images: ['b1.jpg','b2.jpg','b3.jpg','b4.jpg','b5.jpg','b6.jpg','b7.jpg','b8.jpg','b9.jpg','b10.jpg']
             }
         };
