@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hejun Zhang | Personal Portfolio</title>
+    <style>
+        :root {
+            --mint-green: #A8E6CF;
+            --warm-peach: #FFD3B6;
+            --soft-blue: #DCEDC1;
+            --text-dark: #2D3436;
+            --text-light: #636E72;
+        }
+        
+        body, html { 
+            margin: 0; padding: 0; 
+            font-family: 'Optima', 'Segoe UI', 'Helvetica Neue', sans-serif; 
+            scroll-behavior: smooth; color: var(--text-dark); background: #fff;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative; width: 100%; aspect-ratio: 16 / 9;
+            background: #1a1a1a url('boy.jpg') no-repeat center top / cover;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.6) 100%);
+            z-index: 1;
+        }
+        .hero-overlay { position: relative; z-index: 2; text-align: center; color: white; padding: 20px; }
+        .hero h1 { font-size: 3.2rem; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.6); font-weight: 500; letter-spacing: 1px; }
+        .hero p { font-size: 1.4rem; margin-top: 20px; letter-spacing: 2px; font-weight: 300; }
+
+        /* Identity Grid */
+        .id-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; background: #fbfdfc; padding: 80px 12%; }
+        .id-line { width: 30px; height: 3px; background: var(--mint-green); margin: 0 auto 20px; }
+        .id-card h3 { font-size: 1.4rem; margin-bottom: 15px; font-weight: 500; }
+        .id-card p { font-size: 0.95rem; line-height: 1.8; color: var(--text-light); }
+
+        /* Project Section */
+        .section { padding: 80px 12%; }
+        .project-grid { display: flex; align-items: center; gap: 60px; }
+        .project-img { flex: 1.2; cursor: pointer; }
+        .project-img img { width: 100%; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); transition: 0.4s; }
+        .project-text { flex: 1; }
+
+        .read-more-btn {
+            display: inline-block; margin-top: 25px; padding: 12px 30px;
+            border: 1px solid var(--text-dark); border-radius: 25px;
+            text-decoration: none; color: var(--text-dark); font-size: 0.85rem;
+            transition: 0.3s; cursor: pointer; letter-spacing: 1px; text-transform: uppercase;
+        }
+        .read-more-btn:hover { background: var(--text-dark); color: white; }
+
+        /* Archive Grid */
+        .legacy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 40px; }
+        .legacy-item { position: relative; border-radius: 15px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+        .legacy-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+        .legacy-item:hover img { transform: scale(1.08); }
+        .legacy-info { position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: white; padding: 20px; opacity: 0; transition: 0.3s; }
+        .legacy-item:hover .legacy-info { opacity: 1; }
+
+        /* Modal & Carousel */
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9); backdrop-filter: blur(8px);
+        }
+        .modal-content {
+            background-color: white; margin: 2% auto; padding: 40px; border-radius: 20px;
+            width: 70%; max-height: 90vh; overflow-y: auto; position: relative;
+        }
+        .close-btn { position: absolute; right: 25px; top: 15px; font-size: 35px; cursor: pointer; color: #bbb; z-index: 100; }
+        .modal-body h2 { font-size: 2rem; border-left: 5px solid var(--mint-green); padding-left: 20px; margin-bottom: 25px; }
+        .modal-body p { font-size: 1.05rem; line-height: 1.8; color: var(--text-light); }
+
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin: 30px 0; border-radius: 15px; overflow: hidden; background: #000; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .carousel-wrap { position: relative; width: 100%; margin: 30px 0; overflow: hidden; border-radius: 12px; background: #f8f8f8; }
+        .carousel-inner { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .carousel-inner img { width: 100%; flex-shrink: 0; object-fit: contain; max-height: 550px; }
+        .carousel-control { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.4); color: white; border: none; padding: 15px; cursor: pointer; border-radius: 50%; z-index: 10; font-size: 1.2rem; }
+        .control-prev { left: 15px; } .control-next { right: 15px; }
+
+        footer { text-align: center; padding: 80px; color: #bbb; letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase; }
+
+        @media (max-width: 900px) { .id-grid, .project-grid, .legacy-grid { display: block; } .project-img, .id-card { margin-bottom: 40px; } .modal-content { width: 92%; padding: 25px; } }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-overlay">
+            <h1>Whatever you can imagine, <br>is bound to exist in this world.</h1>
+            <p>Hejun Zhang</p>
+        </div>
+    </header>
+
+    <section class="id-grid">
+        <div class="id-card">
+            <div class="id-line"></div>
+            <h3>Author</h3>
+            <p>Moved into the mountains for 10 years to create for my newborn son. Published author of 22 original picture books.</p>
+        </div>
+        <div class="id-card">
+            <div class="id-line" style="background:var(--warm-peach)"></div>
+            <h3>Co-Founder & Secretary General</h3>
+            <p>Driving the "iWater" Conservation Initiative.<br>Achieving large-scale social impact through behavioral design.</p>
+        </div>
+        <div class="id-card">
+            <div class="id-line" style="background:var(--soft-blue)"></div>
+            <h3>Designer</h3>
+            <p>Aerospace Tech-Art & Social Innovation.<br>Finalist of the 2025 Bologna Illustrators Exhibition.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="project-grid">
+            <div class="project-img" onclick="openModal('modal-panda')"><img src="panda-lamp.jpg" alt="Panda Candy Lamp"></div>
+            <div class="project-text">
+                <h2 style="font-size: 2.4rem; margin: 15px 0;">Panda Candy Lamp</h2>
+                <p>Designed by Hejun Zhang and his 12-year-old son, Max. This project transforms literary dreams from <i>"A Candy Rain"</i> into solar-powered solutions for children in Africa.</p>
+                <div class="read-more-btn" onclick="openModal('modal-panda')">Explore Story</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background:#fcfcfc">
+        <h2 style="text-align: center; margin-bottom: 50px; font-weight: 500;">Major Archives</h2>
+        <div class="legacy-grid">
+            <div class="legacy-item" onclick="openModal('modal-fuyue')">
+                <img src="fuyue.jpg" alt="Fu Yue Bottle">
+                <div class="legacy-info"><h4>Fu Yue Bottle</h4><p>Lunar-Synched Aerospace Tech-Art</p></div>
+            </div>
+            <div class="legacy-item" onclick="openModal('modal-iwater')">
+                <img src="iwater.jpg" alt="iWater">
+                <div class="legacy-info"><h4>iWater Initiative</h4><p>National Water Conservation Labeling System</p></div>
+            </div>
+            <div class="legacy-item" onclick="openModal('modal-books')">
+                <img src="books.jpg" alt="22 Picture Books">
+                <div class="legacy-info"><h4>22 Picture Books</h4><p>A 10-Year Creative Mountain Retreat</p></div>
+            </div>
+        </div>
+    </section>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalBody" class="modal-body"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Hejun Zhang | Hejun.me | International Design Research</p>
+        <p>© 2026. CREATED WITH IMAGINATION.</p>
+    </footer>
+
+    <script>
+        const details = {
+            'modal-panda': {
+                title: 'Panda Candy Lamp',
+                content: `<p><b>A Father-Son Design:</b> Co-designed with my 12-year-old son, Max. Inspired by my debut book <i>"A Candy Rain,"</i> where inhabitants create a "candy rain" to help children in need.</p>
+                          <p><b>From Story to Light:</b> We transformed this literary wish into a solar-powered lamp that provides essential lighting for African children, proving that imagination can solve real-world problems.</p>
+                          <div class="video-container"><iframe src="https://www.youtube.com/embed/dZ_XVnZMaAE" frameborder="0" allowfullscreen></iframe></div>`,
+                images: ['panda-1.jpg', 'panda-2.jpg', 'panda-3.jpg']
+            },
+            'modal-fuyue': {
+                title: 'Fu Yue Bottle (Lunar Bottle)',
+                content: `<p><b>A Romantic Origin:</b> Originally conceived in 2004 as a moon-synced gift for my girlfriend. After 9 years of refinement, it was realized in 2013.</p>
+                          <p><b>Aerospace Legacy:</b> Now permanently installed at <b>Beijing Aerospace City</b> for the 10th anniversary of Chinese Manned Spaceflight. <b>Yang Liwei</b>, China's first taikonaut, participated in its creation and highly commended the work.</p>`,
+                images: ['fuyue-1.jpg', 'fuyue-2.jpg', 'fuyue-3.jpg']
+            },
+            'modal-iwater': {
+                title: 'iWater Initiative',
+                content: `<p><b>The Crisis:</b> China consumes tens of billions of bottles of water annually. Many are wasted because they become "unidentifiable" once opened.</p>
+                          <div class="video-container"><iframe src="https://www.youtube.com/embed/lxqgVim_9tg" frameborder="0" allowfullscreen></iframe></div>
+                          <p><b>National Stewardship:</b> As the Co-Founder and Secretary General of this project, I promoted the "marker label" system, which has been used for years at the <b>NPC & CPPCC (Two Sessions)</b> and supported by figures like <b>Henry Paulson</b>.</p>`,
+                images: ['iw1.jpg','iw2.jpg','iw3.jpg','iw4.jpg','iw5.jpg','iw6.jpg','iw7.jpg','iw8.jpg','iw9.jpg']
+            },
+            'modal-books': {
+                title: '22 Picture Books & Bologna Honors',
+                content: `<p><b>10 Years in the Mountains:</b> To write stories for my newborn son, I moved into the mountains for a decade, authoring 22 books that explain the world with warmth and without preaching.</p>
+                          <p><b>Collaborations:</b> Working with Caldecott Medalist <b>Richard Egielski</b>, Japanese master <b>Sadao Tsukioka</b>, and Iranian genius <b>Hassan Mousavi</b>.</p>
+                          <p><b>Accolade:</b> Shortlisted for the <b>2025 Bologna Illustrators Exhibition</b>.</p>`,
+                images: ['b1.jpg','b2.jpg','b3.jpg','b4.jpg','b5.jpg','b6.jpg','b7.jpg','b8.jpg','b9.jpg','b10.jpg']
+            }
+        };
+
+        function openModal(id) {
+            const data = details[id];
+            let carouselHtml = "";
+            if (data.images) {
+                const slides = data.images.map(src => `<img src="${src}" alt="Detail" onerror="this.style.display='none'">`).join('');
+                carouselHtml = `<div class="carousel-wrap"><button class="carousel-control control-prev" onclick="moveSlide(-1)">&#10094;</button><button class="carousel-control control-next" onclick="moveSlide(1)">&#10095;</button><div class="carousel-inner" id="carouselInner">${slides}</div></div>`;
+            }
+            document.getElementById('modalBody').innerHTML = `<h2>${data.title}</h2>${data.content}${carouselHtml}`;
+            document.getElementById('projectModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            window.currentIndex = 0;
+        }
+
+        function moveSlide(dir) {
+            const inner = document.getElementById('carouselInner');
+            if(!inner) return;
+            const total = inner.children.length;
+            window.currentIndex = (window.currentIndex + dir + total) % total;
+            inner.style.transform = `translateX(-${window.currentIndex * 100}%)`;
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(e) { if (e.target.className === 'modal') closeModal(); }
+    </script>
+</body>
+</html>
