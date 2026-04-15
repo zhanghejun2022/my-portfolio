@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hejun Zhang | Hejun.me</title>
     <style>
-        :root { --mint-green: #A8E6CF; --warm-peach: #FFD3B6; --soft-blue: #DCEDC1; --text-dark: #2D3436; --text-light: #636E72; }
+        :root { --mint-green: #A8E6CF; --warm-peach: #FFD3B6; --soft-blue: #DCEDC1; --text-dark: #2D3436; --text-light: #636E72; --un-blue: #008db1; }
         body, html { margin: 0; padding: 0; font-family: 'Optima', 'Segoe UI', 'PingFang SC', sans-serif; scroll-behavior: smooth; color: var(--text-dark); background: #fff; }
 
         /* Hero Section */
@@ -23,7 +23,9 @@
         .hero-logos { display: flex; align-items: center; gap: 20px; margin-top: 25px; }
         .idssd-logo-img { height: 80px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3)); border-radius: 6px; }
 
-        .idssd-badge { background: #f8f9fa; padding: 12px 12%; text-align: center; border-bottom: 1px solid #eee; color: #444; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
+        /* 顶部通栏增加点击跳转 */
+        .idssd-badge { background: #f0f7f9; padding: 12px 12%; text-align: center; border-bottom: 1px solid #e0eef2; color: var(--un-blue); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: 0.3s; display: block; text-decoration: none; }
+        .idssd-badge:hover { background: #e6f2f5; }
 
         .id-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; text-align: center; padding: 50px 12% 40px 12%; background: #fbfdfc; }
         .id-line { width: 30px; height: 3px; background: var(--mint-green); margin: 0 auto 15px; }
@@ -36,7 +38,13 @@
         .project-img img { width: 100%; border-radius: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); display: block; }
         .project-text { flex: 1; }
         .project-text h2 { font-size: 2.2rem; margin: 10px 0; }
-        .read-more-btn { display: inline-block; margin-top: 20px; padding: 10px 25px; border: 1px solid var(--text-dark); border-radius: 25px; text-decoration: none; color: var(--text-dark); font-size: 0.85rem; cursor: pointer; }
+        
+        /* 按钮样式 */
+        .btn-group { display: flex; gap: 15px; margin-top: 20px; }
+        .read-more-btn { display: inline-block; padding: 10px 25px; border: 1px solid var(--text-dark); border-radius: 25px; text-decoration: none; color: var(--text-dark); font-size: 0.85rem; cursor: pointer; transition: 0.3s; }
+        .read-more-btn:hover { background: var(--text-dark); color: white; }
+        .un-link-btn { display: inline-block; padding: 10px 25px; background: var(--un-blue); border-radius: 25px; text-decoration: none; color: white; font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+        .un-link-btn:hover { background: #006f8c; }
 
         .legacy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; }
         .legacy-item { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; }
@@ -55,7 +63,7 @@
 
         footer { text-align: center; padding: 60px; color: #bbb; font-size: 0.75rem; border-top: 1px solid #eee; }
 
-        @media (max-width: 900px) { .hero { aspect-ratio: 1/1; align-items: flex-end; } .hero-overlay { text-align: center; padding-left: 0; max-width: 85%; padding-bottom: 40px; } .id-grid, .project-grid, .legacy-grid { display: block; } .modal-content { width: 92%; } }
+        @media (max-width: 900px) { .hero { aspect-ratio: 1/1; align-items: flex-end; } .hero-overlay { text-align: center; padding-left: 0; max-width: 85%; padding-bottom: 40px; } .id-grid, .project-grid, .legacy-grid { display: block; } .modal-content { width: 92%; } .btn-group { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -70,7 +78,9 @@
         </div>
     </header>
 
-    <div class="idssd-badge">Official Endorsed Activity of the <strong>Science Decade (IDSSD 2024-2033)</strong></div>
+    <a href="https://www.un-sciences-decade.org/en/endorsed-activities/candy-rain-community-based-science-engagement-activity-improving-childrens-lives-through-simple?hub=63" target="_blank" class="idssd-badge">
+        Official Endorsed Activity of the <strong>Science Decade (IDSSD 2024-2033)</strong> →
+    </a>
 
     <section class="id-grid">
         <div class="id-card"><div class="id-line"></div><h3>Author</h3><p>Author of 22 picture books. 2025 Bologna Illustrators Exhibition Finalist.</p></div>
@@ -86,7 +96,10 @@
             <div class="project-text">
                 <h2>Panda Candy Lamp</h2>
                 <p>An innovative fusion of storytelling and sustainable technology. As the physical legacy of the picture book <i>"A Candy Rain"</i>, this solar-powered lamp serves as a beacon of hope, bringing light and education to children in off-grid communities across Africa.</p>
-                <div class="read-more-btn" onclick="openModal('modal-panda')" style="cursor:pointer;">Explore Archive & Video</div>
+                <div class="btn-group">
+                    <div class="read-more-btn" onclick="openModal('modal-panda')">Explore Archive & Video</div>
+                    <a href="https://www.un-sciences-decade.org/en/endorsed-activities/candy-rain-community-based-science-engagement-activity-improving-childrens-lives-through-simple?hub=63" target="_blank" class="un-link-btn">Official IDSSD Portal</a>
+                </div>
             </div>
         </div>
     </section>
@@ -125,13 +138,14 @@
                 ytId: 'dZ_XVnZMaAE',
                 content: `<p><b>Official Endorsement:</b> Proudly recognized as an official activity of the <b>United Nations International Science Decade (IDSSD 2024-2033)</b>. This initiative bridges the gap between creative art and scientific application.</p>
                           <p><b>Global Connection:</b> Inspired by the acclaimed picture book <i>"A Candy Rain"</i>, which features a personal commemorative signature from the 8th UN Secretary-General, <b>Mr. Ban Ki-moon</b>.</p>
-                          <p><b>Design Philosophy:</b> Co-designed by Hejun Zhang and his son Max, the project empowers young minds by transforming simple solar technology into a medium for social good.</p>`,
+                          <p><b>Design Philosophy:</b> Co-designed by Hejun Zhang and his son Max, the project empowers young minds by transforming simple solar technology into a medium for social good.</p>
+                          <p><a href="https://www.un-sciences-decade.org/en/endorsed-activities/candy-rain-community-based-science-engagement-activity-improving-childrens-lives-through-simple?hub=63" target="_blank" style="color:var(--un-blue); font-weight:bold;">View this project on the official IDSSD website →</a></p>`,
                 images: ['idssd-logo.jpg', 'ban-ki-moon-signature.jpg', 'panda-lamp.jpg', 'panda-1.jpg', 'panda-2.jpg', 'panda-3.jpg', 'panda-4.jpg']
             },
             'modal-fuyue': {
                 title: 'Fu Yue Bottle',
                 content: `<p>A cross-disciplinary tech-art installation created in collaboration with Yang Liwei, China's first astronaut. The bottle uses real-time data to synchronize its luminosity with the current lunar phase.</p>`,
-                images: ['fuyue.jpg', 'fuyue-1.jpg', 'fuyue-2.jpg', 'fuyue-detail.jpg', 'fuyue-3.jpg']
+                images: ['fuyue.jpg', 'fuyue-1.jpg', 'fuyue-2.jpg', 'fuyue-3.jpg', 'fuyue-4.jpg', 'fuyue-5.jpg', 'fuyue-detail.jpg']
             },
             'modal-iwater': {
                 title: 'iWater Initiative',
