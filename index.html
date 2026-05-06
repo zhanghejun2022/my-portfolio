@@ -133,15 +133,24 @@
 
     <script>
         const details = {
-            'modal-panda': {
-                title: 'Panda Candy Lamp',
-                ytId: 'dZ_XVnZMaAE',
-                content: `<p><b>Official Endorsement:</b> Proudly recognized as an official activity of the <b>United Nations International Science Decade (IDSSD 2024-2033)</b>. This initiative bridges the gap between creative art and scientific application.</p>
-                          <p><b>Global Connection:</b> Inspired by the acclaimed picture book <i>"A Candy Rain"</i>, which features a personal commemorative signature from the 8th UN Secretary-General, <b>Mr. Ban Ki-moon</b>.</p>
-                          <p><b>Design Philosophy:</b> Co-designed by Hejun Zhang and his son Max, the project empowers young minds by transforming simple solar technology into a medium for social good.</p>
-                          <p><a href="https://www.un-sciences-decade.org/en/endorsed-activities/candy-rain-community-based-science-engagement-activity-improving-childrens-lives-through-simple?hub=63" target="_blank" style="color:var(--un-blue); font-weight:bold;">View this project on the official IDSSD website →</a></p>`,
-                images: ['idssd-logo.jpg', 'ban-ki-moon-signature.jpg', 'panda-lamp.jpg', 'panda-1.jpg', 'panda-2.jpg', 'panda-3.jpg', 'panda-4.jpg']
-            },
+          'modal-panda': {
+    title: 'Panda Candy Lamp',
+    ytId: 'dZ_XVnZMaAE',
+    content: `<p><b>Official Endorsement:</b> Proudly recognized as an official activity of the <b>United Nations International Science Decade (IDSSD 2024-2033)</b>. This initiative bridges the gap between creative art and scientific application.</p>
+              <p><b>Global Connection:</b> Inspired by the acclaimed picture book <i>"A Candy Rain"</i>, which features a personal commemorative signature from the 8th UN Secretary-General, <b>Mr. Ban Ki-moon</b>.</p>
+              
+              <!-- 增加对乌克兰艺术家的致敬 -->
+              <div style="margin: 25px 0; padding: 20px; background: #fdf2f8; border-radius: 15px; border-left: 5px solid #d63384; text-align: left;">
+                  <p style="margin: 0; color: #d63384; font-weight: bold; font-size: 1rem;">Special Tribute / 特别致敬</p>
+                  <p style="font-size: 0.95rem; line-height: 1.6; margin-top: 10px; color: #333;">
+                      The picture book <i>"A Candy Rain"</i> has been consistently reprinted since its publication. We are deeply honored to collaborate with two exquisite Ukrainian artists, <b>Ludmila Osipova</b> and <b>Mykola Lomakin</b>, whose masterful illustrations brought this story to life.
+                  </p>
+              </div>
+
+              <p><b>Design Philosophy:</b> Co-designed by Hejun Zhang and his son Max, the project empowers young minds by transforming simple solar technology into a medium for social good.</p>`,
+    // 确保封面图排在数组第一位
+    images: ['candy-rain-cover.jpg', 'idssd-logo.jpg', 'ban-ki-moon-signature.jpg', 'panda-lamp.jpg', 'panda-1.jpg', 'panda-2.jpg', 'panda-3.jpg', 'panda-4.jpg']
+},
             'modal-fuyue': {
                 title: 'Fu Yue Bottle',
                 content: `<p>A cross-disciplinary tech-art installation created in collaboration with Yang Liwei, China's first astronaut. The bottle uses real-time data to synchronize its luminosity with the current lunar phase.</p>`,
